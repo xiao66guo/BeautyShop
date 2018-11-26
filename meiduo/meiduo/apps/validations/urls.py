@@ -5,6 +5,6 @@ from django.urls import path
 from validations.views import ImageCodeView
 
 urlpatterns = [
-    path('imageCodeView/<image_code_id>', ImageCodeView.as_view(), name='imageCodeView'),
+    path('image_code/<image_code_id>', ImageCodeView.as_view(), name='image_code'),
 ]
 
