@@ -16,7 +16,6 @@ import os, sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
-print(sys.path)
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'users.apps.UsersConfig',
+    'validations.apps.ValidationsConfig',
 
 ]
 
@@ -189,7 +189,8 @@ LOGGING = {
     }
 }
 
-
+# 指明自定义的用户模型类
+AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     # 异常处理
