@@ -2,9 +2,9 @@
 __author__ = 'xiaoguo'
 
 from django.urls import path
-from . import views
+from validations.views import ImageCodeView
 
 urlpatterns = [
-    path('imageCodeView/<image_code_id>', views.ImageCodeView.as_view(), name='imageCodeView'),
+    path('imageCodeView/<image_code_id>', ImageCodeView.as_view(), name='imageCodeView'),
 ]
 
