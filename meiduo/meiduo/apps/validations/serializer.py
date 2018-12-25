@@ -6,7 +6,7 @@ from django_redis import get_redis_connection
 
 class ImageCodeCheckSerializer(serializers.Serializer):
     '''图片验证码校验序列化器'''
-    image_code_id= serializers.UUIDField()
+    image_code_id = serializers.UUIDField()
     text = serializers.CharField(max_length=4, min_length=4)
 
     def validate(self, attrs):
@@ -20,7 +20,7 @@ class ImageCodeCheckSerializer(serializers.Serializer):
             raise serializers.ValidationError('图片验证码无效')
 
         # 删除redis中的图片验证码
-        redis_conn.delete('img_%s' % image_code_id)
+        # redis_conn.delete('img_%s' % image_code_id)
 
         # 比较图片验证码
         real_image_code_text = real_image_code_text.decode()

@@ -2,8 +2,8 @@ import random
 import logging
 from django.http import HttpResponse
 from django.shortcuts import render
-from requests import Response
 from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from meiduo.libs.captcha.captcha import captcha
 from django_redis import get_redis_connection
@@ -23,6 +23,7 @@ class ImageCodeView(APIView):
         # 将图片验证码的真实值保存到Django_redis中
         redis_con = get_redis_connection('verify_codes')
         redis_con.setex("img_%s" % image_code_id, constants.IMAGE_CODE_REDIS_EXPIRES, text)
+        print('图片验证码为：%s' % text)
 
         # 返回图片
         return HttpResponse(image, content_type='image/jpg')
@@ -47,7 +48,9 @@ class SMSCodeView(GenericAPIView):
         # 保存短信验证码 发送记录
         redis_conn = get_redis_connection('verify_codes')
         # redis 管道
-        pl = redis_conn.pipline()
+
+        pl = redis_conn.pipeline()
+
         pl.setex("sms_%s" % mobile, constants.SMS_CODE_REDIS_EXPIRES, sms_code)
         pl.setex("send_flag_%s" % mobile, constants.SEND_SMS_CODE_INTERVAL, 1)
         # 管道通知redis执行命令
@@ -65,7 +68,10 @@ class SMSCodeView(GenericAPIView):
         else:
             if result == 0:
                 logger.info("发送验证码短信[正常][ mobile: %s ]" % mobile)
-                return Response({'message': 'OK'})
+                try:
+                    return Response({'message': 'OK'})
+                except Exception as e:
+                    print(e)
             else:
                 logger.warning("发送验证码短信[失败][ mobile: %s ]" % mobile)
                 return Response({'message': 'failed'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
