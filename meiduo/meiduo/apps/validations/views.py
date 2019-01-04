@@ -45,7 +45,6 @@ class SMSCodeView(GenericAPIView):
 
         # 生成短信验证码
         sms_code = '%06d' % random.randint(0, 999999)
-        # print('短信验证码为：%d' % sms_code)
 
         # 保存短信验证码 发送记录
         redis_conn = get_redis_connection('verify_codes')
@@ -59,8 +58,8 @@ class SMSCodeView(GenericAPIView):
         print('短信验证码为：' + sms_code)
 
         # TODO:使用celery异步发送短信验证码
-        expires = constants.IMAGE_CODE_REDIS_EXPIRES // 60
-        send_sms_code.delay(mobile, sms_code, expires, constants.SMS_CODE_TEMP_ID)
+        # expires = constants.IMAGE_CODE_REDIS_EXPIRES // 60
+        # send_sms_code.delay(mobile, sms_code, expires, constants.SMS_CODE_TEMP_ID)
 
         return Response({'message': 'OK'})
 
