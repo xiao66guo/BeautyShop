@@ -190,6 +190,7 @@ var vm = new Vue({
                         // 记录用户的登录状态
                         sessionStorage.clear();
                         localStorage.clear();
+
                         localStorage.token = response.data.token;
                         localStorage.username = response.data.username;
                         localStorage.user_id = response.data.user_id;

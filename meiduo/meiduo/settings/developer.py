@@ -200,6 +200,10 @@ LOGGING = {
 
 # 指明自定义的用户模型类
 AUTH_USER_MODEL = 'users.User'
+# 认证方法
+AUTHENTICATION_BACKENDS = [
+    'users.utils.UsernameMobileAuthBackend',
+]
 
 REST_FRAMEWORK = {
     # 异常处理
@@ -215,6 +219,7 @@ REST_FRAMEWORK = {
 # jwt的有效期
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.utils.jwt_response_payload_handler',
 }
 
 # 添加白名单
