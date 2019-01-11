@@ -6,7 +6,6 @@ from users.views import UserView, UsernameCountView, MobileCountView
 from rest_framework_jwt.views import obtain_jwt_token
 
 
-
 urlpatterns = [
     path('users/', UserView.as_view(), name='users'),
     path('usernames/<username>/count/', UsernameCountView.as_view(), name='usernames'),
