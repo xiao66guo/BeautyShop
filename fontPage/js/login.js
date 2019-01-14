@@ -86,7 +86,7 @@ var vm = new Vue({
         },
         // qq登录
         qq_login: function(){
-            var next = this.get_query_string('next') || '/';
+            var next = this.get_query_string('next') || '/index.html';
             axios.get(this.host + 'oauth/qq/authorization/?next=' + next, {
                     responseType: 'json'
                 })
