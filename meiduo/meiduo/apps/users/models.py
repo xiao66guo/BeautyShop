@@ -7,9 +7,9 @@ from itsdangerous import TimedJSONWebSignatureSerializer as TJWSSerializer , Bad
 from meiduo.utils.models import BaseModel
 from . import constants
 
-
+"""用户模型类"""
 class User(AbstractUser):
-    """用户模型类"""
+
     mobile = models.CharField(max_length=11, unique=True, verbose_name='手机号')
     email_active = models.BooleanField(default=False, verbose_name='邮箱验证状态')
     default_address = models.ForeignKey('Address', related_name='users', null=True, blank=True,on_delete=models.SET_NULL, verbose_name='默认地址')
@@ -43,7 +43,7 @@ class User(AbstractUser):
             else:
                 return user
 
-# TODO:用户地址管理
+'''用户地址管理'''
 class Address(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses', verbose_name='用户')
     title = models.CharField(max_length=20, verbose_name='地址名称')
