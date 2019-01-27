@@ -1,4 +1,8 @@
 # -*- coding:utf-8 -*-
+from rest_framework import routers
+
+from users import views
+
 __author__ = 'xiaoguo'
 
 from django.urls import path
@@ -14,7 +18,10 @@ urlpatterns = [
     path('user/', UserDetailView.as_view(), name='user'),                       # 个人中心基本信息
     path('email/', EmailView.as_view(), name='email'),                          # 发送验证邮件
     path('emails/verification/', VerifyEmailView.as_view(), name='emails'),     # 邮箱验证
-
-
 ]
+
+router = routers.DefaultRouter()
+router.register('addresses', views.AddressViewSet, base_name='addresses')
+
+urlpatterns += router.urls
 
